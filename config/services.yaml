@@ -1,0 +1,23 @@
+# config/services.yaml
+services:
+    _defaults:
+        autowire: true      # Active l'injection automatique des dépendances
+        autoconfigure: true # Configure automatiquement les services
+        public: false       # Recommandation de Symfony pour une meilleure encapsulation
+
+    App\Security\ActiveUserChecker:
+        tags:
+            - { name: 'security.user_checker' }
+
+    # Définit les services dans le namespace 'App'
+    App\:
+        resource: '../src/*'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+
+    App\Controller\:
+      resource: '../src/Controller'
+      tags: ['controller.service_arguments']

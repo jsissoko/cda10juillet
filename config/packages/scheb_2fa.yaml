@@ -1,0 +1,7 @@
+
+scheb_two_factor:
+    email:
+        enabled: true
+        sender_email: no-reply@example.com
+        sender_name: Sissoko Jeanke   # Optionnel
+        digits: 6

@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ventalis | Boutique de Parfums{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+   {% include 'layout/header.html.twig' %}
+
+img
+    <div class="enveloppe">
+        <main class="contenu-principal">
+            <div id="heros" class="heros">
+                <h1>Altin</h1>
+                <p>Lorsque l'été arrive, la saison appelle à une fragrance estivale plus légère, plus fraîche et certains diraient même plus zestée pour correspondre à l'ambiance de cette période de l'année. Essayez l'un de nos nouveaux parfums parfaits pour les mois ensoleillés.</p>
+            </div>
+
+            <div class="barre-navigation">
+                <div class="element-nav">
+                    <ul>
+                        <li><a href="#heros"><i class="fas fa-home"></i> Accueil</a></li>
+                        <li><a href="#en-vedette"><i class="fa fa-fire"></i> En vedette</a></li>
+                        <li><a href="#produits"><i class="fa fa-spray-can"></i> Produits</a></li>
+                        <li><a href="#témoignages"><i class="fa fa-quote-left"></i> Témoignages</a></li>
+                        <li><a href="#contact"><i class="fas fa-address-card"></i> Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="en-vedette">
+                <h2>Produits en Vedette</h2>
+                <p>Nos produits sont appréciés par nos clients.</p>
+
+                
+<div class="mesproduits">
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+ <img class="card-img-top" src="{{ asset('images/products/' ~ product.image) }}" alt="Image de {{ product.nom }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.nom }}</h5>
+                    <p class="card-text">{{ product.prix }} €</p>
+                    <a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+                </div>
+            </div>
+        </div>
+        {% if loop.index % 3 == 0 %}
+            </div><div class="row">
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+
+                <div class="produit-en-vedette">
+                    <div class="vedette-un">
+                        <img src="assets/images/blue.png" alt="" class="image-vedette">
+                        <div class="description-vedette">
+                            <p>
+                                <b>Nom du Produit :</b> Parfum pour le Corps The Man Company.
+                                <br>
+                                <b>Prix en Offre :</b> <del>30 $</del> 24,00 $
+                                <br>
+                                <b>Couleur :</b> Bleu.
+                            </p>
+                        </div>
+                        <a href="#" class="acheter-maintenant">Acheter Maintenant</a>
+                    </div>
+                    <div class="vedette-deux">
+                        <img src="assets/images/gold.png" alt="" class="image-vedette">
+                        <div class="description-vedette">
+                            <p>
+                                <b>Nom du Produit :</b> Parfum pour le Corps The Man Company.
+                                <br>
+                                <b>Prix en Offre :</b> <del>30 $</del> 24,50 $
+                                <br>
+                                <b>Couleur :</b> Doré.
+                            </p>
+                        </div>
+                        <a href="#" class="acheter-maintenant">Acheter Maintenant</a>
+                    </div>
+                    <div class="vedette-trois">
+                        <img src="assets/images/black.jpg" alt="" class="image-vedette">
+                        <div class="description-vedette">
+                            <p>
+                                <b>Nom du Produit :</b> Parfum pour le Corps The Man Company.
+                                <br>
+                                <b>Prix en Offre :</b> <del>30 $</del> 22,50 $
+                                <br>
+                                <b>Couleur :</b> Noir.
+                            </p>
+                        </div>
+                        <a href="#" class="acheter-maintenant">Acheter Maintenant</a>
+                    </div>
+                </div>
+            </div>
+            <div class="section-icône-boîte">
+                <div class="icône1 icône">
+                    <i class="fas fa-globe-americas"></i>
+                    <h3>Partout dans le Monde</h3>
+
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque quos ipsa iste animi doloribus,
+                        nam odit inventore magni quidem voluptatum placeat, rerum vero nemo quis ex? Minus ullam
+                        accusamus consectetur!</p>
+                </div>
+                <div class="icône2 icône"><i class="fas fa-dollar-sign"></i>
+                    <h3>Garantie de Remboursement</h3>
+
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque quos ipsa iste animi doloribus,
+                        nam odit inventore magni quidem voluptatum placeat, rerum vero nemo quis ex? Minus ullam
+                        accusamus consectetur!</p>
+                </div>
+                <div class="icône3 icône"><i class="fas fa-shipping-fast"></i>
+                    <h3>Expédition Rapide & Gratuite</h3>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque quos ipsa iste animi doloribus,
+                        nam odit inventore magni quidem voluptatum placeat, rerum vero nemo quis ex? Minus ullam
+                        accusamus consectetur!</p>
+                </div>
+            </div>
+            <!-- Section des Produits -->
+            <div id="produits">
+                <h2>Notre Meilleur Produit</h2>
+                <p>Nous fournissons les meilleurs produits pour nos clients.</p>
+
+                <div class="grille-produits">
+                    <img src="assets/images/product1.png">
+                    <img src="assets/images/product2.png">
+                    <img src="assets/images/product3.png">
+                    <div class="deuxième-grille">
+                        <img src="assets/images/product4.png">
+                        <img src="assets/images/product5.png">
+                        <img src="assets/images/product6.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Section Témoignages -->
+            <div id="témoignages">
+                <h2>Ce que Nos Clients Disent</h2>
+                <p>Nous fournissons les meilleurs produits pour nos clients.</p>
+                <div class="clients client1">
+                    <i class="fas fa-quote-left icône-citation"></i>
+                    <img src="assets/images/customer1.jpg">
+                    <h3>Meilleur Parfum!</h3>
+
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque fugiat provident dolorem
+                        veritatis mollitia aspernatur dolor sequi laborum in. Enim minima numquam pariatur quos
+                        voluptatem hic soluta molestias quis consequatur.</p>
+                    <i class="fas fa-quote-right icône-citation"></i>
+
+                </div>
+                <div class="clients client2 ">
+                    <i class="fas fa-quote-left icône-citation "></i>
+                    <img src="assets/images/customer2.png">
+                    <h3>Merci!</h3>
+
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque fugiat provident dolorem
+                        veritatis mollitia aspernatur dolor sequi laborum in. Enim minima numquam pariatur quos
+                        voluptatem hic soluta molestias quis consequatur.</p>
+                    <i class="fas fa-quote-right icône-citation "></i>
+                </div>
+                <div class="clients client3">
+                    <i class="fas fa-quote-left icône-citation"></i>
+                    <img src="assets/images/customer3.png">
+                    <h3>Je suis Impressionné!</h3>
+
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque fugiat provident dolorem
+                        veritatis mollitia aspernatur dolor sequi laborum in. Enim minima numquam pariatur quos
+                        voluptatem hic soluta molestias quis consequatur.</p>
+                    <i class="fas fa-quote-right icône-citation"></i>
+                </div>
+            </div>
+            <!-- Section de Contact -->
+            <div id="contact">
+
+
+                <h2>Contactez Nous</h2>
+                <p>N'hésitez pas à nous envoyer un message pour toute question. Nous vous apprécions toujours.</p>
+
+                <form>
+                    <label for="nom">Nom</label> <br>
+                    <input type="text" name="" id="nom" placeholder="Entrez votre nom" required>
+                    <br>
+                    <label for="email">E-mail</label> <br>
+                    <input type="email" name="" id="email" placeholder="Entrez votre e-mail" required>
+                    <br>
+                    <label for="message">Message</label><br>
+                    <textarea name="" id="message" placeholder="Entrez votre message" required></textarea>
+                    <br>
+                    <button type="submit">Envoyer</button>
+                </form>
+
+            </div>
+        </main>
+        <footer class="pied-de-page">Droits d'auteur &copy;2020 | Tous droits réservés | Créé par Al Nahian</footer>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+{% endblock %}

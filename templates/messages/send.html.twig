@@ -1,0 +1,17 @@
+{# templates/messages/send.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Envoyer un Nouveau Message{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Envoyer un Nouveau Message</h1>
+    {{ form_start(messageForm) }}
+    {{ form_row(messageForm.title) }}
+    {{ form_row(messageForm.message) }}
+    {{ form_row(messageForm.destinataire) }}
+    <button type="submit" class="btn btn-success">Envoyer</button>
+    {{ form_end(messageForm) }}
+</div>
+{% endblock %}

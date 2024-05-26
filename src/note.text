@@ -1,0 +1,31 @@
+Premiererment 
+les entites
+le user 
+l'inscription
+la connexion 
+la deconnexion 
+les relations 
+mettre sur git
+les roles 
+
+
+
+SOucis 
+je suis sur l'accueilcontroller le soucis est que je ne parviens pas a transmettre l'id dans l'url alors que c'est boligatioire
+la route neccesite l'id dans l'url je l'zi enlever pour le moment 
+
+
+j'ai reussi  a transmettre l'id dans l'url je ne parviens pas a afficher la liste des utilisateurs avec un bouton modifier 
+la variable utilisateurs n'est pas recconu 
+je pense a creer un autre fichier twig pour les afficher 
+
+
+j'ai supprimer toutes les demarches faites pour les roles et commncer easyadmin4 qui me permet de gerer (crud) toutes mes entitesil reste maintenat a definir les roles et savoir qui pourra acceder au easy admin
+
+
+l'attribution des roles est maintenant possible pour le super admin et l'admin il reste a savoir si il est necessaire d'avoir un super admin
+je dois aussi verifier que l'employer ne puisse pas acceder au dashbord et creer des comptes employer et user 
+
+je passe a la verification de mail 
+
+j'ai continuer la verification de mail dansj'ai un soucis dans le emailverifier je ne recuperes pas les getid et get email

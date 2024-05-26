@@ -1,0 +1,37 @@
+controllers:
+    resource: ../src/Controller/
+    type: annotation
+
+kernel:
+    resource: ../src/Kernel.php
+    type: annotation
+
+# route de deconnexion 
+# config/routes.yaml
+app_logout:
+    path: /logout
+    # success_handler: App\Security\LogoutSuccessHandler
+
+# config/routes.yaml
+app_login:
+    path: /login
+    controller: App\Controller\LoginController::index
+
+
+# config/routes.yaml
+home:
+    path: /
+    controller: App\Controller\AccueilController::index
+
+
+# app_admin:
+#     path: /admin
+#     controller: App\Controller\AdminController::index
+
+
+# config/routes.yaml
+# config/routes.yaml
+
+panier_ajouter:
+    path: /panier/ajouter/{id}
+    controller: App\Controller\CartController::addToCart

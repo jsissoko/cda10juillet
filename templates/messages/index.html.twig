@@ -1,0 +1,78 @@
+{# templates/messages/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Messagerie{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Messagerie</h1>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="received-tab" data-toggle="tab" href="#received" role="tab" aria-controls="received" aria-selected="true">Messages reçus</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="sent-tab" data-toggle="tab" href="#sent" role="tab" aria-controls="sent" aria-selected="false">Messages envoyés</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="received" role="tabpanel" aria-labelledby="received-tab">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Expéditeur</th>
+                        <th>Titre</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                        <th>Lire</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for message in received_messages %}
+                        <tr>
+                            <td>{{ message.expediteur.email }}</td>
+                            <td>{{ message.title }}</td>
+                            <td>{{ message.message|slice(0, 50) }}...</td>
+                            <td>{{ message.createdAt|date('d/m/Y H:i') }}</td>
+                            <td><a href="{{ path('message_show', {'id': message.id}) }}" class="btn btn-primary">Voir</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="sent" role="tabpanel" aria-labelledby="sent-tab">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Destinataire</th>
+                        <th>Titre</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for message in sent_messages %}
+                        <tr>
+                            <td>{{ message.destinataire.email }}</td>
+                            <td>{{ message.title }}</td>
+                            <td>{{ message.message|slice(0, 50) }}...</td>
+                            <td>{{ message.createdAt|date('d/m/Y H:i') }}</td>
+                            <td>{{ message.isRead ? 'Lu' : 'Non lu' }}</td>
+                        </tr>
+                    {% endfor %}
+
+
+              <button class="btn btn-primary">
+        <a href="{{ path('send_message_form') }}" style="color: white; text-decoration: none;">Envoyer un nouveau message</a>
+    </button>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

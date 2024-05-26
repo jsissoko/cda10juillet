@@ -1,0 +1,46 @@
+{# templates/cart/show.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre Panier{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Votre Panier</h1>
+    {% if items|length > 0 %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Prix Unité</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for productId, quantity in items %}
+                    {% set product = getProduct(productId) %} {# Supposant que vous ayez une fonction pour récupérer les détails du produit #}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ quantity }}</td>
+                        <td>{{ product.price }} €</td>
+                        <td>{{ (product.price * quantity)|number_format(2, '.', ',') }} €</td>
+                        <td>
+                            <a href="{{ path('add_to_cart', {'productId': productId}) }}" class="btn btn-sm btn-primary">+</a>
+                            <a href="{{ path('decrement_quantity', {'productId': productId}) }}" class="btn btn-sm btn-warning">-</a>
+                            <a href="{{ path('remove_from_cart', {'productId': productId}) }}" class="btn btn-sm btn-danger">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="total">
+            <strong>Total : {{ total|number_format(2, '.', ',') }} €</strong>
+        </div>
+    {% else %}
+       <p>Votre panier est vide.</p>
+    {% endif %}
+    <a href="{{ path('product_list') }}" class="btn btn-primary">Continuer vos achats</a>
+</div>
+{% endblock %}

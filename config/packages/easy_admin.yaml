@@ -1,0 +1,14 @@
+easy_admin:
+    entities:
+        Produit:
+            class: App\Entity\Produit
+            label: Produits
+            form:
+                fields:
+                    - 'nom'
+                    - 'prix'
+                    - 'quantite'
+                    - 'info_produit'
+                    - 'statut_produit'
+                    - 'ref_prod'
+                    - { property: 'image', type: 'file' } # Utilise le type 'file' pour le champ image

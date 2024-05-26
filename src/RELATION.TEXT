@@ -1,0 +1,10 @@
+Produit/categorie : MANYTOMANYM
+Utilisateur/panier : ONETOONE
+Utilisateur/message : ONETOMANY
+Utilisateur/messageriesession : MANYTOOne
+Utilisateur/produit : ONETOMANY (produit.Utilisateur)
+message/ messageriesession : MANYTOOne
+panier / commande : ONETOMANY (commande.panier)
+
+Utilisateur/Utilisateur : MANYTOONE
+produit /panier : MANYTOMANY

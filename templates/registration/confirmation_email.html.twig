@@ -1,0 +1,27 @@
+{# templates/registration/confirmation_email.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Verify Your Email{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Verify Your Email</h1>
+    <p>Please enter the email address you registered with and the verification code you received to activate your account.</p>
+
+    {{ form_start(verificationForm) }}
+    <div class="form-group">
+        {{ form_label(verificationForm.email) }}
+        {{ form_widget(verificationForm.email, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(verificationForm.email) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(verificationForm.verificationCode) }}
+        {{ form_widget(verificationForm.verificationCode, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(verificationForm.verificationCode) }}
+    </div>
+  
+    <button type="submit">Verify</button>
+    {{ form_end(verificationForm) }}
+</div>
+{% endblock %}
+
