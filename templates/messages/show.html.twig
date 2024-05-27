@@ -1,0 +1,29 @@
+{# templates/messages/show.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Affichage du Message{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Message: {{ message.title }}</h1>
+    <p><strong>De :</strong> {{ message.expediteur.email }}</p>
+    <p><strong>À :</strong> {{ message.destinataire.email }}</p>
+    <p><strong>Date :</strong> {{ message.createdAt|date('Y-m-d H:i:s') }}</p>
+    <div class="card">
+        <div class="card-body">
+            {{ message.message }}
+        </div>
+    </div>
+    <a href="{{ path('app_messages') }}" class="btn btn-primary mt-3">Retour à la liste des messages</a>
+
+    <h2 class="mt-4">Répondre</h2>
+    <form action="{{ path('message_reply', {'id': message.id}) }}" method="post" class="form">
+        <div class="form-group">
+            <label for="response">Votre message :</label>
+            <textarea id="response" name="response" class="form-control" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Envoyer la réponse</button>
+    </form>
+</div>
+{% endblock %}

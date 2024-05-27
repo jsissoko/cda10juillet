@@ -54,8 +54,15 @@ class MessagesController extends AbstractController
                 return $this->redirectToRoute('app_login');  // Rediriger vers la page de connexion
             }
 
+            // $employe = $user->getNom();  // Récupérer l'employé assigné
+            // if (!$employe) {
+            //     $this->addFlash('error', 'Aucun employé n’est assigné à votre compte.');
+            //     return $this->redirectToRoute('app_messages');  // Rediriger vers la liste des messages
+            // }
+            
+
             $message->setExpediteur($user);
-           
+        
             // Enregistrer le message dans la base de données
             $this->entityManager->persist($message);
             $this->entityManager->flush();
@@ -69,4 +76,40 @@ class MessagesController extends AbstractController
         ]);
     }
 
+
+    #[Route('/messages/show/{id}', name: 'message_show')]
+    public function showMessage(int $id): Response
+    {
+        $message = $this->entityManager->getRepository(Messages::class)->find($id);
+
+        if (!$message) {
+            throw $this->createNotFoundException('Le message demandé n\'existe pas.');
+        }
+
+        return $this->render('messages/show.html.twig', [
+            'message' => $message
+        ]);
+    }
+
+    #[Route('/messages/reply/{id}', name: 'message_reply', methods: ['POST'])]
+    public function replyMessage(Request $request, int $id, EntityManagerInterface $entityManager): Response
+    {
+        $message = $entityManager->getRepository(Messages::class)->find($id);
+
+        if (!$message) {
+            throw $this->createNotFoundException('Le message n\'existe pas.');
+        }
+
+        $replyMessage = new Messages();
+        $replyMessage->setTitle('Re: ' . $message->getTitle());
+        $replyMessage->setMessage($request->request->get('response'));
+        $replyMessage->setExpediteur($this->getUser());
+        $replyMessage->setDestinataire($message->getExpediteur());
+
+        $entityManager->persist($replyMessage);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Votre réponse a été envoyée.');
+        return $this->redirectToRoute('app_messages');
+    }
 }
