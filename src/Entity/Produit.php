@@ -54,6 +54,10 @@ class Produit
     #[ORM\ManyToOne(inversedBy: 'Produit')]
     private ?Utilisateur $utilisateur = null;
 
+    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'produits')]
+    private Collection $categories;
+    
+
     #[ORM\ManyToMany(targetEntity: Panier::class, inversedBy: 'produits')]
     private Collection $Produit;
 
@@ -63,6 +67,7 @@ class Produit
     {
         // $this->produit = new ArrayCollection();
         $this->Produit = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -197,6 +202,33 @@ class Produit
     }
 
   
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
 
+    public function setCategories(Collection $categories): self
+    {
+        $this->categories = $categories;
+        return $this;
+    }
+
+    // Méthodes pour ajouter ou enlever des catégories
+    public function addCategorie(Categorie $categorie): self
+    {
+        if (!$this->categories->contains($categorie)) {
+            $this->categories->add($categorie);
+            $categorie->getProduits()->add($this);
+        }
+        return $this;
+    }
+
+    public function removeCategorie(Categorie $categorie): self
+    {
+        if ($this->categories->removeElement($categorie)) {
+            $categorie->getProduits()->removeElement($this);
+        }
+        return $this;
+    }
  
 }

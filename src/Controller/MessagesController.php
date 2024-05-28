@@ -10,6 +10,7 @@ use App\Repository\MessagesRepository;
 use App\Entity\Messages;
 use App\Entity\Utilisateur;
 use App\Form\MessagesType;
+// use Doctrine\ORM\Mapping\Entity;
 use Symfony\Component\HttpFoundation\Request;
 
 class MessagesController extends AbstractController
@@ -112,4 +113,30 @@ class MessagesController extends AbstractController
         $this->addFlash('success', 'Votre réponse a été envoyée.');
         return $this->redirectToRoute('app_messages');
     }
+
+
+//     // src/Controller/MessagesController.php
+
+// #[Route('/messages/send-to-employe', name: 'send_message_to_employe')]
+// public function sendMessageToEmploye(Request $request, EntityManagerInterface $entityManager): Response
+// {
+//     $user = $this->getUser();  // Assurez-vous que cela retourne un Utilisateur
+
+//     if (!$user) {
+//         $this->addFlash('error', 'Vous devez être connecté pour envoyer un message.');
+//         return $this->redirectToRoute('app_login');
+//     }
+
+//     $employe = $user->getEmploye();
+//     if (!$employe) {
+//         $this->addFlash('error', 'Aucun employé n’est assigné à votre compte.');
+//         return $this->redirectToRoute('dashboard');
+//     }
+
+//     $message = new Messages();
+//     $message->setExpediteur($user);
+//     $message->setDestinataire($employe);
+//     // Logique pour traiter le formulaire de message
+// }
+
 }

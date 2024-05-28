@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\CategorieRepository;
@@ -18,16 +17,12 @@ class Categorie
     #[ORM\Column(length: 55)]
     private ?string $nom_categ = null;
 
-    #[ORM\ManyToMany(targetEntity: Produit::class, mappedBy: 'produit')]
+    #[ORM\ManyToMany(targetEntity: Produit::class, mappedBy: 'categories')]
     private Collection $produits;
-
-    #[ORM\ManyToMany(targetEntity: Produit::class, mappedBy: 'produit')]
-    private Collection $produit;
 
     public function __construct()
     {
         $this->produits = new ArrayCollection();
-        $this->produit = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -40,45 +35,39 @@ class Categorie
         return $this->nom_categ;
     }
 
-    public function setNomCateg(string $nom_categ): static
+    public function setNomCateg(string $nom_categ): self
     {
         $this->nom_categ = $nom_categ;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Produit>
-     */
+    public function __toString(): string
+    {
+        return $this->nom_categ;
+    }
+
     public function getProduits(): Collection
     {
         return $this->produits;
     }
 
-    public function addProduit(Produit $produit): static
+    public function addProduit(Produit $produit): self
     {
         if (!$this->produits->contains($produit)) {
             $this->produits->add($produit);
-            $produit->addProduit($this);
+            $produit->addCategorie($this);
         }
 
         return $this;
     }
 
-    public function removeProduit(Produit $produit): static
+    public function removeProduit(Produit $produit): self
     {
         if ($this->produits->removeElement($produit)) {
-            $produit->removeProduit($this);
+            $produit->removeCategorie($this);
         }
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Produit>
-     */
-    public function getProduit(): Collection
-    {
-        return $this->produit;
-    }
 }
+
