@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Produit;
-use App\Entity\Categorie;
+// use App\Entity\Categorie;
 
 class AppFixtures extends Fixture
 {
@@ -26,13 +26,13 @@ class AppFixtures extends Fixture
         }
 
        
-        // Créer 20 fixtures pour CategorieProduit
-        for ($i = 1; $i <= 6; $i++) {
-            $categorie = new Categorie();
-            $categorie->setNomCateg("Catégorie $i");
-            // ... définissez d'autres propriétés si nécessaire
-            $manager->persist($categorie);
-        }
+        // // Créer 20 fixtures pour CategorieProduit
+        // for ($i = 1; $i <= 6; $i++) {
+        //     $categorie = new Categorie();
+        //     $categorie->setNomCateg("Catégorie $i");
+        //     // ... définissez d'autres propriétés si nécessaire
+        //     $manager->persist($categorie);
+        // }
 
         // Persistez les objets dans la base de données
         $manager->flush();

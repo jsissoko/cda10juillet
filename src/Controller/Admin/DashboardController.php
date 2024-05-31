@@ -8,10 +8,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
-use App\Entity\Categorie;
-use App\Entity\Commande;
-use App\Entity\Panier;
-use App\Entity\Produit;
+// use App\Entity\Categorie;
+// use App\Entity\Commande;
+// use App\Entity\Panier;
+// use App\Entity\Produit;
 use App\Entity\Utilisateur;
 
 
@@ -22,7 +22,7 @@ class DashboardController extends AbstractDashboardController
     {
         // return parent::index();
         $routeBuilder = $this->container->get(AdminUrlGenerator::class);
-        $url = $routeBuilder->setController(CommandeCrudController::class)->generateUrl();
+        $url = $routeBuilder->setController(ProduitCrudController::class)->generateUrl();
    
            return $this->redirect($url);
 
@@ -54,10 +54,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
         yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'app_accueil'); 
-        yield MenuItem::linkToCrud('Commande', 'fas fa-map-marker-alt', Commande::class);
-        yield MenuItem::linkToCrud('Categorie', 'fas fa-comments', Categorie::class);
-        yield MenuItem::linkToCrud('Panier', 'fas fa-map-marker-alt', Panier::class);
-        yield MenuItem::linkToCrud('Produits', 'fas fa-comments', Produit::class);
+        // yield MenuItem::linkToCrud('Commande', 'fas fa-map-marker-alt', Commande::class);
+        // yield MenuItem::linkToCrud('Categorie', 'fas fa-comments', Categorie::class);
+        // yield MenuItem::linkToCrud('Panier', 'fas fa-map-marker-alt', Panier::class);
+        // yield MenuItem::linkToCrud('Produits', 'fas fa-comments', Produit::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-map-marker-alt', Utilisateur::class);
     
 

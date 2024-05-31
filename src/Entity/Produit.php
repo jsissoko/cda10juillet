@@ -48,26 +48,23 @@ class Produit
     private ?File $imageFile = null;
 
     
-    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'Produit')]
-    private Collection $produit;
+    // #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'Produit')]
+    // private Collection $produit;
 
     #[ORM\ManyToOne(inversedBy: 'Produit')]
     private ?Utilisateur $utilisateur = null;
 
-    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'produits')]
-    private Collection $categories;
+    // #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'produits')]
+    // private Collection $categoriesCollection;
     
-
-    #[ORM\ManyToMany(targetEntity: Panier::class, inversedBy: 'produits')]
-    private Collection $Produit;
 
 
 
     public function __construct()
     {
         // $this->produit = new ArrayCollection();
-        $this->Produit = new ArrayCollection();
-        $this->categories = new ArrayCollection();
+        // $this->Produit = new ArrayCollection();
+        // $this->categoriesCollection = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -165,29 +162,29 @@ class Produit
         return $this->imageFile;
     }
 
-    /**
-     * @return Collection<int, categorie>
-     */
-    public function getProduit(): Collection
-    {
-        return $this->produit;
-    }
+    // /**
+    //  * @return Collection<int, categorie>
+    //  */
+    // public function getProduit(): Collection
+    // {
+    //     return $this->produit;
+    // }
 
-    public function addProduit(Categorie $produit): static
-    {
-        if (!$this->produit->contains($produit)) {
-            $this->produit->add($produit);
-        }
+    // public function addProduit(Categorie $produit): static
+    // {
+    //     if (!$this->produit->contains($produit)) {
+    //         $this->produit->add($produit);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeProduit(Categorie $produit): static
-    {
-        $this->produit->removeElement($produit);
+    // public function removeProduit(Categorie $produit): static
+    // {
+    //     $this->produit->removeElement($produit);
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getUtilisateur(): ?Utilisateur
     {
@@ -202,33 +199,33 @@ class Produit
     }
 
   
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
+    // public function getCategoriesCollection(): Collection
+    // {
+    //     return $this->categoriesCollection;
+    // }
 
-    public function setCategories(Collection $categories): self
-    {
-        $this->categories = $categories;
-        return $this;
-    }
+    // public function setCategoriesCollection(Collection $categoriesCollection): self
+    // {
+    //     $this->categoriesCollection = $categoriesCollection;
+    //     return $this;
+    // }
 
-    // Méthodes pour ajouter ou enlever des catégories
-    public function addCategorie(Categorie $categorie): self
-    {
-        if (!$this->categories->contains($categorie)) {
-            $this->categories->add($categorie);
-            $categorie->getProduits()->add($this);
-        }
-        return $this;
-    }
+    // // Méthodes pour ajouter ou enlever des catégories
+    // public function addCategorie(Categorie $categorie): self
+    // {
+    //     if (!$this->categoriesCollection->contains($categorie)) {
+    //         $this->categoriesCollection->add($categorie);
+    //         $categorie->addProduit($this);
+    //     }
+    //     return $this;
+    // }
 
-    public function removeCategorie(Categorie $categorie): self
-    {
-        if ($this->categories->removeElement($categorie)) {
-            $categorie->getProduits()->removeElement($this);
-        }
-        return $this;
-    }
+    // public function removeCategorie(Categorie $categorie): self
+    // {
+    //     if ($this->categoriesCollection->removeElement($categorie)) {
+    //         $categorie->removeProduit($this);
+    //     }
+    //     return $this;
+    // }
  
 }

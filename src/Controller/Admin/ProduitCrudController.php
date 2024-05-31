@@ -33,8 +33,8 @@ class ProduitCrudController extends AbstractCrudController
             ImageField::new('image')->setUploadDir('public/images/products/')
             ->setBasePath('/images/products/')  // Chemin accessible via l'URL
             ->onlyOnIndex(),  // Affiche ce champ uniquement sur la page d'index  // le chemin du répertoire où les fichiers sont physiquement stockés
-            AssociationField::new('categories')  // Ajoutez ce champ pour sélectionner des catégories
-            ->setFormTypeOptions(['by_reference' => false])  // Important pour les relations ManyToMany
+            // AssociationField::new('categoriesCollection')  // Ajoutez ce champ pour sélectionner des catégories
+            // ->setFormTypeOptions(['by_reference' => false])  // Important pour les relations ManyToMany
            
         ];
     }

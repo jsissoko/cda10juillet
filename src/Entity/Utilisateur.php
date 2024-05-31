@@ -74,8 +74,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $utilisateurs;
 
 
-    #[ORM\OneToOne(targetEntity: Panier::class, mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
-    private ?Panier $panier = null;
+    // #[ORM\OneToOne(targetEntity: Panier::class, mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
+    // private ?Panier $panier = null;
 
     #[ORM\OneToMany(mappedBy: 'expediteur', targetEntity: Messages::class, orphanRemoval: true)]
     private Collection $sent;
@@ -296,21 +296,21 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPanier(): ?Panier
-    {
-        return $this->panier;
-    }
+    // public function getPanier(): ?Panier
+    // {
+    //     return $this->panier;
+    // }
 
-    public function setPanier(?Panier $panier): self
-    {
-        $this->panier = $panier;
+    // public function setPanier(?Panier $panier): self
+    // {
+    //     $this->panier = $panier;
 
-        // configuration de la relation inverse si nécessaire
-        if ($panier !== null && $panier->getUtilisateur() !== $this) {
-            $panier->setUtilisateur($this);
-        }
-        return $this;
-    }
+    //     // configuration de la relation inverse si nécessaire
+    //     if ($panier !== null && $panier->getUtilisateur() !== $this) {
+    //         $panier->setUtilisateur($this);
+    //     }
+    //     return $this;
+    // }
 
  
     public function getEmploye(): ?Utilisateur
