@@ -8,7 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
-// use App\Entity\Categorie;
+use App\Entity\Categories;
 // use App\Entity\Commande;
 // use App\Entity\Panier;
 // use App\Entity\Produit;
@@ -55,7 +55,7 @@ class DashboardController extends AbstractDashboardController
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
         yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'app_accueil'); 
         // yield MenuItem::linkToCrud('Commande', 'fas fa-map-marker-alt', Commande::class);
-        // yield MenuItem::linkToCrud('Categorie', 'fas fa-comments', Categorie::class);
+        yield MenuItem::linkToCrud('Categories', 'fas fa-comments', Categories::class);
         // yield MenuItem::linkToCrud('Panier', 'fas fa-map-marker-alt', Panier::class);
         // yield MenuItem::linkToCrud('Produits', 'fas fa-comments', Produit::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-map-marker-alt', Utilisateur::class);
