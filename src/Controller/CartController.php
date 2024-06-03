@@ -2,12 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Produit;
+use App\Entity\Commandes;
+use App\Entity\CommandeLigne;
+use App\Form\CommandesType;
 use App\Service\CartService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class CartController extends AbstractController
 {
@@ -16,7 +20,8 @@ class CartController extends AbstractController
     public function index(CartService $cartService): Response
     {
         return $this->render('cart/index.html.twig', [
-           'cart' => $cartService->getTotal()
+           'cart' => $cartService->getTotal(),
+           'cartDetails' => $cartService->getCartDetails()
         ]);
     }
  
@@ -52,8 +57,59 @@ class CartController extends AbstractController
     #[Route('/mon-panier/removeAll', name: 'cart_removeAll')]
     public function removeAll(CartService $cartService): Response
     {
-        $cartService->revoveCartAll();
+        $cartService->removeCartAll();
 
         return $this->redirectToRoute('shop_index');
     }
+
+    #[Route('/mon-panier/commander', name: 'cart_commander')]
+public function commander(Request $request, CartService $cartService, EntityManagerInterface $entityManager): Response
+{
+    $commande = new Commandes();
+    $form = $this->createForm(CommandesType::class, $commande);
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $user = $this->getUser();
+        $cart = $cartService->getCartDetails();
+
+        $commande->setUtilisateur($user);
+        $commande->setStatus('En attente');
+        $commande->setDate(new \DateTime());
+
+        $total = 0;
+        foreach ($cart as $item) {
+            $ligne = new CommandeLigne();
+            $ligne->setProduit($item['product']);
+        //    dd( $ligne->setProduit($item['product']));
+            $ligne->setQuantite($item['quantity']);
+            $ligne->setPrix($item['product']->getPrix() * $item['quantity']);
+            $ligne->setCommande($commande);
+            // dd($ligne);
+            $entityManager->persist($ligne);
+            $total += $ligne->getPrix();
+        }
+        $commande->setTotal($total);
+
+        $entityManager->persist($commande);
+        $entityManager->flush();
+
+        $cartService->removeCartAll();
+
+        return $this->redirectToRoute('commande_success');
+    }
+
+    return $this->render('cart/commander.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
+
+
+    #[Route('/commande/success', name: 'commande_success')]
+    public function success(): Response
+    {
+        return $this->render('cart/success.html.twig');
+    }
+
 }

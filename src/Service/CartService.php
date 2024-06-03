@@ -49,7 +49,7 @@ class CartService {
         $this->getSession()->set('cart', $cart);
     }
 
-    public function revoveCartAll() 
+    public function removeCartAll() 
     {
         return $this->getSession()->remove('cart');
     }
@@ -73,6 +73,28 @@ class CartService {
         return $cartData;
     }
 
+
+    public function getCartDetails(): array
+    {
+        $cart = $this->getSession()->get('cart', []);
+        $cartDetails = [];
+
+        if ($cart) {
+            foreach ($cart as $productId => $quantity) {
+                $product = $this->em->getRepository(Produit::class)->find($productId);
+                if ($product) {
+                    $cartDetails[] = [
+                        'product' => $product,
+                        'quantity' => $quantity ,
+                        'id' => $productId
+                    ];
+                }
+            }
+        }
+
+        // dd($cartDetails); // Ajoutez ceci pour vérifier les détails du panier
+        return $cartDetails;
+    }
 
     private function getSession(): SessionInterface 
     {

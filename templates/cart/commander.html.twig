@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Finaliser la commande{% endblock %}
+
+{% block body %}
+<h1 class="my-4">Finaliser la commande</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        {{ form_start(form) }}
+            <div class="mb-3">
+                {{ form_row(form.numero_rue, {'attr': {'class': 'form-control'}}) }}
+            </div> 
+             <div class="mb-3">
+                {{ form_row(form.nom_rue, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(form.ville, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(form.code_postal, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(form.pays, {'attr': {'class': 'form-control'}}) }}
+            </div>
+             <div class="mb-3">
+                {{ form_row(form.informations_sup, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Valider la commande</button>
+            <button type="button" class="btn btn-success">Payer maintenant</button>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

@@ -57,7 +57,10 @@ class Produit
 
 
     
-
+    public function __toString()
+    {
+        return $this->nom;
+    }
 
 
     public function __construct()
