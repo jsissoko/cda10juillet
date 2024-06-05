@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Entity\Commandes;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,6 +16,15 @@ use Stripe\Checkout\Session;
 
 class PaymentController extends AbstractController
 {
+
+    private $entityManager;
+
+
+    public function __construct(EntityManagerInterface $entityManager,)
+    {
+        $this->entityManager = $entityManager;
+
+    }
     #[Route('/checkout/{matricule_cmd}', name: 'checkout')]
     public function checkout($matricule_cmd, EntityManagerInterface $entityManager): Response
     {
@@ -42,8 +52,8 @@ class PaymentController extends AbstractController
                     'quantity' => 1,
                 ]],
                 'mode' => 'payment',
-                'success_url' => $this->generateUrl('success', [], UrlGeneratorInterface::ABSOLUTE_URL),
-                'cancel_url' => $this->generateUrl('cancel', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                'success_url' => $this->generateUrl('success', ['matricule_cmd' => $matricule_cmd], UrlGeneratorInterface::ABSOLUTE_URL),
+                'cancel_url' => $this->generateUrl('cancel', ['matricule_cmd' => $matricule_cmd], UrlGeneratorInterface::ABSOLUTE_URL),
             ]);
 
             return $this->render('payment/redirect.html.twig', [
@@ -55,9 +65,17 @@ class PaymentController extends AbstractController
         }
     }
 
-    #[Route('/success', name: 'success')]
-    public function success(): Response
+    #[Route('/success/{matricule_cmd}', name: 'success')]
+    public function success($matricule_cmd,EntityManagerInterface $entityManager): Response
     {
+        $commande = $this->entityManager->getRepository(Commandes::class)->findOneBy(['matricule_cmd' => $matricule_cmd]);
+
+        if ($commande) {
+            $commande->setStatus('Payé'); // Mettez à jour le statut ici
+            $this->entityManager->persist($commande);
+            $this->entityManager->flush();
+        }
+
         return $this->render('payment/success.html.twig');
     }
 

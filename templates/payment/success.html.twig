@@ -1,58 +1,9 @@
+{# templates/payment/success.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Paiement Réussi{% endblock %}
 
 {% block body %}
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: #fff;
-            padding: 20px 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .container h1 {
-            color: #27ae60;
-        }
-        .container p {
-            margin: 15px 0;
-        }
-        .container .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #27ae60;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .container .btn:hover {
-            background-color: #219150;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-<h1>Paiement Réussi,merci pour votre commande!</h1>
-        <p>Votre commande a été effectuée avec succès. Vous recevrez un email de confirmation sous peu.</p>
-        <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
-        <a href="{{ path('home') }}" class="btn">Retour à l'accueil</a>
-    </div>
-</body>
-</html>
-
-
+<h1>Paiement Réussi</h1>
+<p>Votre paiement a été traité avec succès. Merci pour votre achat !</p>
 {% endblock %}
