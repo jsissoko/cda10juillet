@@ -1,0 +1,44 @@
+{# templates/payment/checkout.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Finaliser la commande{% endblock %}
+
+{% block body %}
+<h1 class="my-4">Finaliser la commande</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <button id="checkout-button" class="btn btn-success" data-matricule="{{ matricule_cmd }}">Payer maintenant</button>
+    </div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe('{{ stripePublicKey }}');
+    var checkoutButton = document.getElementById('checkout-button');
+
+    checkoutButton.addEventListener('click', function () {
+        var matriculeCmd = checkoutButton.getAttribute('data-matricule');
+        fetch('/checkout/' + matriculeCmd, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (session) {
+            return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(function (result) {
+            if (result.error) {
+                alert(result.error.message);
+            }
+        })
+        .catch(function (error) {
+            console.error('Error:', error);
+        });
+    });
+</script>
+{% endblock %}

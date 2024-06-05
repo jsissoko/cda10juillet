@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commande Réussie</title>
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement Réussi{% endblock %}
+
+{% block body %}
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,10 +46,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>Merci pour votre commande!</h1>
+<h1>Paiement Réussi,merci pour votre commande!</h1>
         <p>Votre commande a été effectuée avec succès. Vous recevrez un email de confirmation sous peu.</p>
         <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
         <a href="{{ path('home') }}" class="btn">Retour à l'accueil</a>
     </div>
 </body>
 </html>
+
+
+{% endblock %}

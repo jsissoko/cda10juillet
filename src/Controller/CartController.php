@@ -63,11 +63,10 @@ class CartController extends AbstractController
     }
 
     #[Route('/mon-panier/commander', name: 'cart_commander')]
-public function commander(Request $request, CartService $cartService, EntityManagerInterface $entityManager): Response
+    public function commander(Request $request, CartService $cartService, EntityManagerInterface $entityManager): Response
 {
     $commande = new Commandes();
     $form = $this->createForm(CommandesType::class, $commande);
-
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -82,14 +81,13 @@ public function commander(Request $request, CartService $cartService, EntityMana
         foreach ($cart as $item) {
             $ligne = new CommandeLigne();
             $ligne->setProduit($item['product']);
-        //    dd( $ligne->setProduit($item['product']));
             $ligne->setQuantite($item['quantity']);
             $ligne->setPrix($item['product']->getPrix() * $item['quantity']);
             $ligne->setCommande($commande);
-            // dd($ligne);
             $entityManager->persist($ligne);
             $total += $ligne->getPrix();
         }
+
         $commande->setTotal($total);
 
         $entityManager->persist($commande);
@@ -97,7 +95,10 @@ public function commander(Request $request, CartService $cartService, EntityMana
 
         $cartService->removeCartAll();
 
-        return $this->redirectToRoute('commande_success');
+       
+            // Rediriger vers la page de paiement avec le matricule de la commande
+            return $this->redirectToRoute('checkout', ['matricule_cmd' => $commande->getMatriculeCmd()]);
+        
     }
 
     return $this->render('cart/commander.html.twig', [

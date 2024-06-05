@@ -51,11 +51,16 @@
     
         #[ORM\OneToMany(mappedBy: 'commande', targetEntity: CommandeLigne::class, cascade: ['persist'])]
         private $commandeLignes;
+
+        #[ORM\Column(unique: true)]
+        private ?int $matricule_cmd;
     
         
         public function __construct()
         {
             $this->commandeLignes = new ArrayCollection();
+            $this->matricule_cmd = rand(10 , 99999);
+            
             
         }
 
@@ -226,6 +231,18 @@
 
         //     return $this;
         // }
+
+        public function getMatriculeCmd(): ?int
+        {
+            return $this->matricule_cmd;
+        }
+
+        public function setMatriculeCmd(int $matricule_cmd): static
+        {
+            $this->matricule_cmd = $matricule_cmd;
+
+            return $this;
+        }
 
       
     }

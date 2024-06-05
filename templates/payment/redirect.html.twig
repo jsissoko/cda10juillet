@@ -1,0 +1,24 @@
+{# templates/payment/redirect.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Redirection vers Stripe{% endblock %}
+
+{% block body %}
+<h1>Redirection vers Stripe...</h1>
+<p>Session ID: {{ sessionId }}</p>
+<p>Stripe Public Key: {{ stripePublicKey }}</p>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe('{{ stripePublicKey }}');
+    stripe.redirectToCheckout({ sessionId: '{{ sessionId }}' }).then(function (result) {
+        if (result.error) {
+            console.error(result.error.message);
+            alert('Erreur lors de la redirection vers Stripe: ' + result.error.message);
+        }
+    }).catch(function (error) {
+        console.error('Erreur réseau ou autre: ', error);
+        alert('Erreur réseau ou autre: ' + error.message);
+    });
+</script>
+{% endblock %}
