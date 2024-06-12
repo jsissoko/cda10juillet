@@ -1,43 +1,45 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-
-
+<nav class="navbar navbar-expand-lg bg-body-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{{ path('app_accueil')}}">Ventalis</a>
+    <a class="navbar-brand" href="{{ path('app_accueil')}}"><img src="/images/logo/ventalislogo.png" alt="Ventalis Logo" style="height: 60px;"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Produits</a>
+          <a class="nav-link active" aria-current="page" href="{{ path('app_messages')}}">Mon assistance</a>
         </li>
-         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Conseil</a>
-        </li>
-
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
           <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ path('app_messages')}}">Ma messagerie</a>
-        </li>
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    {# L'utilisateur est connecté, vous pouvez accéder à l'objet app.user #}
-          <a class="nav-link active" aria-current="page" href="{{ path('admin')}}">Admin</a>
+            <a class="nav-link active" aria-current="page" href="{{ path('admin')}}">Admin</a>
+          </li>
         {% endif %}
-
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ path('app_register')}}">Inscription</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" id="produitDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Nos Parfums
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="produitDropdown">
+            <li><a class="dropdown-item" href='#'>Musc</a></li>
+            <li><a class="dropdown-item" href="#">Brume</a></li>
+            <li><a class="dropdown-item" href="#">Eaux de Parfums</a></li>
+          </ul>
         </li>
-     </ul>
-         <a href="{{ path('cart_index') }}" class="nav-link active" >Mon panier </a>
-         <br>
-         <a href="{{ path('app_login') }}" class="nav-link active" >Connexion</a>
-         <br>
-         <a href="{{ path('app_profile_index') }}" class="nav-link active" >Mon compte</a>
-    
-       <br>
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-         <a href="{{ path('app_logout') }}" class="nav-link active" >Déconnexion</a>
-        {% endif %}
-        
+     
+      </ul>
+      <div class="fafa">
+  
+      </ul>
+      <a href="{{ path('cart_index') }}" class="nav-link active"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+      {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a href="{{ path('app_profile_index') }}" class="nav-link active"><i class="fa fa-user" aria-hidden="true"></i></a>
+        <a href="{{ path('app_logout') }}" class="nav-link active"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+      {% else %}
+         
+        <a class="href="{{ path('app_register')}}"class="nav-link active">Inscription</a>
+        <a href="{{ path('app_login') }}" class="nav-link active">Se connecter </a>
+      {% endif %}
+      
+     </div>
     </div>
   </div>
 </nav>

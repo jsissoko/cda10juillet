@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img class="card-img-top" src="{{ asset('images/products/' ~ product.image) }}" alt="Image de {{ product.nom }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.nom }}</h5>
+                        <p class="card-text">{{ product.prix }} €</p>
+                        <a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+                    </div>
+                </div>
+            </div>
+            {% if loop.index % 3 == 0 %}
+                </div><div class="row">
+            {% endif %}
+        {% endfor %}
+    </div>
+    </div>
+
+   
+{% endblock %}
