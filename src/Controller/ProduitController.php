@@ -22,6 +22,7 @@ class ProduitController extends AbstractController
             'products' => $products,
             'categories' => $categories,
             'selectedCategories' => [], // Initialement aucune catégorie sélectionnée
+            'sortPrice' => null, // Pas de tri initialement
         ]);
     }
 
@@ -36,11 +37,14 @@ class ProduitController extends AbstractController
             $selectedCategories = [];
         }
 
-        // Debugging: dump the selectedCategories
-        dump($selectedCategories);
+        // Récupérer le tri par prix
+        $sortPrice = $request->query->get('sort_price', '');
 
-        // Récupérer les produits filtrés
-        $products = $produitRepository->findByCategories($selectedCategories);
+        // Debugging: dump the selectedCategories and sortPrice
+        dump($selectedCategories, $sortPrice);
+
+        // Récupérer les produits filtrés et triés
+        $products = $produitRepository->findByCategoriesAndSort($selectedCategories, $sortPrice);
 
         // Récupérer toutes les catégories
         $categories = $categoriesRepository->findAll();
@@ -50,6 +54,7 @@ class ProduitController extends AbstractController
             'products' => $products,
             'categories' => $categories,
             'selectedCategories' => $selectedCategories,
+            'sortPrice' => $sortPrice,
         ]);
     }
 }

@@ -45,8 +45,7 @@ class ProduitRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-
-public function findByCategories(array $categories): array
+public function findByCategoriesAndSort(array $categories, string $sortPrice): array
 {
     $qb = $this->createQueryBuilder('p');
 
@@ -54,6 +53,12 @@ public function findByCategories(array $categories): array
         $qb->join('p.categories', 'c')
            ->andWhere('c.id IN (:categories)')
            ->setParameter('categories', $categories);
+    }
+
+    if ($sortPrice === 'asc') {
+        $qb->orderBy('p.prix', 'ASC');
+    } elseif ($sortPrice === 'desc') {
+        $qb->orderBy('p.prix', 'DESC');
     }
 
     return $qb->getQuery()->getResult();
