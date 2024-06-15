@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Produit;
 use App\Repository\ProduitRepository;
 use App\Repository\CategoriesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -55,6 +56,14 @@ class ProduitController extends AbstractController
             'categories' => $categories,
             'selectedCategories' => $selectedCategories,
             'sortPrice' => $sortPrice,
+        ]);
+    }
+
+    #[Route('/product/{id}', name: 'product_show')]
+    public function show(Produit $produit): Response
+    {
+        return $this->render('produits/show.html.twig', [
+            'produit' => $produit,
         ]);
     }
 }
