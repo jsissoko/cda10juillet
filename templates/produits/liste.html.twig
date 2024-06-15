@@ -3,25 +3,48 @@
 {% block title %}Products{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <div class="row">
-        {% for product in products %}
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img class="card-img-top" src="{{ asset('images/products/' ~ product.image) }}" alt="Image de {{ product.nom }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.nom }}</h5>
-                        <p class="card-text">{{ product.prix }} €</p>
-                        <a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-primary">Ajouter au panier</a>
-                    </div>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <h4>Filtres</h4>
+                <form method="get" action="{{ path('produit_index') }}">
+                    {% for category in categories %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="{{ category.id }}" id="category{{ category.id }}" name="categories[]"
+                                   {% if category.id in selectedCategories %} checked {% endif %}>
+                            <label class="form-check-label" for="category{{ category.id }}">
+                                {{ category.nomCategorie }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary mt-3">Filtrer</button>
+                </form>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    {% for product in products %}
+                        <div class="col-md-4">
+                            <div class="card mb-4">
+                                <img class="card-img-top" src="{{ asset('images/products/' ~ product.image) }}" alt="Image de {{ product.nom }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.nom }}</h5>
+                                    <p class="card-text">{{ product.prix }} €</p>
+                                    <a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% if loop.index % 3 == 0 %}
+                            </div><div class="row">
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
-            {% if loop.index % 3 == 0 %}
-                </div><div class="row">
-            {% endif %}
-        {% endfor %}
-    </div>
+        </div>
     </div>
 
-   
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+</body>
 {% endblock %}

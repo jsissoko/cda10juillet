@@ -46,18 +46,18 @@ class ProduitRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+public function findByCategories(array $categories): array
+{
+    $qb = $this->createQueryBuilder('p');
 
-    public function findByCategories(array $categories): array
-    {
-        $qb = $this->createQueryBuilder('p');
-
-        if (!empty($categories)) {
-            $qb->andWhere('p.category IN (:categories)')
-               ->setParameter('categories', $categories);
-        }
-
-        return $qb->getQuery()->getResult();
+    if (!empty($categories)) {
+        $qb->join('p.categories', 'c')
+           ->andWhere('c.id IN (:categories)')
+           ->setParameter('categories', $categories);
     }
+
+    return $qb->getQuery()->getResult();
+}
 
 
 }
