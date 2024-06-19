@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace Employé{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Mes Utilisateurs</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td>{{ client.nom }} {{ client.prenom }}</td>
+                    <td>{{ client.email }}</td>
+                    <td>
+                        <a href="{{ path('user_show', {'id': client.id}) }}" class="btn btn-info">Voir</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucun utilisateur attribué.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

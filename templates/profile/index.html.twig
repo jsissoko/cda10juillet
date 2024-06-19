@@ -28,7 +28,6 @@
     }
 </style>
 
-{% include 'layout/header.html.twig' %}
 
 <div class="container">
     <h1 class="mb-4 text-center">Utilisateur index</h1>
@@ -48,7 +47,7 @@
         <tbody>
             <tr>
                 <td>{{ utilisateur.email }}</td>
-                <td>{{ utilisateur.password }} 
+                <td>
 
                 <a href="{{ path('app_change_password', {'id': utilisateur.id}) }}" class="btn btn-primary">Modifier mon mot de passe </a>
 

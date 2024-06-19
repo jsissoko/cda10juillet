@@ -6,13 +6,25 @@
 
 {% block body %}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-   {% include 'layout/header.html.twig' %}
-<div class="container">
-    <h1>Envoyer un Nouveau Message</h1>
-    {{ form_start(messageForm) }}
-    {{ form_row(messageForm.title) }}
-    {{ form_row(messageForm.message) }}
-    {{ form_row(messageForm.destinataire) }}
+
+<div class="container mt-5">
+    <h1 class="mb-4">Envoyer un Nouveau Message</h1>
+    {{ form_start(messageForm, {'attr': {'class': 'form-horizontal'}}) }}
+    <div class="mb-3">
+        {{ form_label(messageForm.title, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(messageForm.title, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(messageForm.title) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(messageForm.message, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(messageForm.message, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(messageForm.message) }}
+    </div>
+    <div class="mb-3">
+        {# {{ form_label(messageForm.destinataire, null, {'label_attr': {'class': 'form-label'}}) }} #}
+        {{ form_widget(messageForm.destinataire, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(messageForm.destinataire) }}
+    </div>
     <button type="submit" class="btn btn-success">Envoyer</button>
     {{ form_end(messageForm) }}
 </div>

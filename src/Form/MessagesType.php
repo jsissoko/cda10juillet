@@ -18,10 +18,11 @@ class MessagesType extends AbstractType
         $builder
             ->add('title')
             ->add('message')
-            ->add('destinataire', EntityType::class, [
-                'class' => Utilisateur::class,
-                'choice_label' => 'email',  // Utilisez l'attribut approprié de l'entité Utilisateur pour l'affichage
-            ]);
+            // ->add('destinataire', EntityType::class, [
+            //     'class' => Utilisateur::class,
+            //     'choice_label' => 'email',  // Utilisez l'attribut approprié de l'entité Utilisateur pour l'affichage
+            // ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

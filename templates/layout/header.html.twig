@@ -9,37 +9,30 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{{ path('app_messages')}}">Mon assistance</a>
         </li>
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ path('app_produit')}}">Nos Parfums</a>
+        </li>
+        {% if is_granted('ROLE_EMPLOYE') %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ path('employe_index')}}">Employé</a>
+          </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{ path('admin')}}">Admin</a>
           </li>
         {% endif %}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" id="produitDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Nos Parfums
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="produitDropdown">
-            <li><a class="dropdown-item" href='#'>Musc</a></li>
-            <li><a class="dropdown-item" href="#">Brume</a></li>
-            <li><a class="dropdown-item" href="#">Eaux de Parfums</a></li>
-          </ul>
-        </li>
-     
       </ul>
       <div class="fafa">
-  
-      </ul>
-      <a href="{{ path('cart_index') }}" class="nav-link active"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-      {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <a href="{{ path('app_profile_index') }}" class="nav-link active"><i class="fa fa-user" aria-hidden="true"></i></a>
-        <a href="{{ path('app_logout') }}" class="nav-link active"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
-      {% else %}
-         
-        <a class="href="{{ path('app_register')}}"class="nav-link active">Inscription</a>
-        <a href="{{ path('app_login') }}" class="nav-link active">Se connecter </a>
-      {% endif %}
-      
-     </div>
+        <a href="{{ path('cart_index') }}" class="nav-link active"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+          <a href="{{ path('app_profile_index') }}" class="nav-link active"><i class="fa fa-user" aria-hidden="true"></i></a>
+          <a href="{{ path('app_logout') }}" class="nav-link active"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+        {% else %}
+          <a href="{{ path('app_register')}}" class="nav-link active">Inscription</a>
+          <a href="{{ path('app_login') }}" class="nav-link active">Se connecter</a>
+        {% endif %}
+      </div>
     </div>
   </div>
 </nav>

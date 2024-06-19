@@ -59,7 +59,7 @@ security:
     access_control:
           - { path: ^/superadmin, roles : ROLE_SUPER_ADMIN }
           - { path: ^/admin, roles: ROLE_ADMIN }
-          - { path: ^/emp, roles: ROLE_EMP }
+          - { path: ^/employe, roles: ROLE_EMPLOYE }
           - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

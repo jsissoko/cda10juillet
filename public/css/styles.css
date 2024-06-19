@@ -19,7 +19,7 @@ body {
     color: white;
     font-family: 'Great Vibes', cursive;
     font-size: 28px;
-    background-color: white;
+    background-color: #FBE7C6;
 }
 
 .footer {
@@ -37,7 +37,7 @@ body {
     margin: 5px;
     justify-content: center;
     size: 10px;
-    color: #FBE7C6;
+    color: #000000;
 }
 
 .fafa a {

@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+
+use App\Entity\Utilisateur;
 use App\Entity\Messages;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -45,4 +47,16 @@ class MessagesRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function findMessagesBetween(Utilisateur $employe, Utilisateur $client)
+{
+    return $this->createQueryBuilder('m')
+        ->andWhere('m.expediteur = :employe AND m.destinataire = :client')
+        ->orWhere('m.expediteur = :client AND m.destinataire = :employe')
+        ->setParameter('employe', $employe)
+        ->setParameter('client', $client)
+        ->orderBy('m.createdAt', 'ASC')
+        ->getQuery()
+        ->getResult();
+}
 }

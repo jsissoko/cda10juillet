@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'Utilisateur{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Détails de l'Utilisateur</h1>
+    <dl class="row">
+        <dt class="col-sm-3">Nom</dt>
+        <dd class="col-sm-9">{{ client.nom }} {{ client.prenom }}</dd>
+
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">{{ client.email }}</dd>
+
+        <dt class="col-sm-3">Téléphone</dt>
+        <dd class="col-sm-9">{{ client.telephone }}</dd>
+
+        <dt class="col-sm-3">Adresse</dt>
+        <dd class="col-sm-9">{{ client.numeroRue }} {{ client.nomRue }}, {{ client.ville }}, {{ client.pays }}</dd>
+    </dl>
+    <hr>
+    <h2>Discussion en cours</h2>
+    <div class="messages">
+        {% for message in messages %}
+            <div class="message {% if message.expediteur == app.user %}from-me{% else %}to-me{% endif %}">
+                <p><strong>{{ message.expediteur.nom }}</strong>: {{ message.message }}</p>
+                <p class="text-muted"><small>{{ message.createdAt|date('d/m/Y H:i') }}</small></p>
+            </div>
+        {% else %}
+            <p>Aucun message échangé.</p>
+        {% endfor %}
+    </div>
+    <hr>
+    <h2>Envoyer un Message</h2>
+    {{ form_start(messageForm, {'attr': {'class': 'form'}}) }}
+        <div class="mb-3">
+            {{ form_label(messageForm.title, 'Titre', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(messageForm.title, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(messageForm.title) }}
+        </div>
+        <div class="mb-3">
+            {{ form_label(messageForm.message, 'Message', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(messageForm.message, {'attr': {'class': 'form-control', 'rows': 5}}) }}
+            {{ form_errors(messageForm.message) }}
+        </div>
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+    {{ form_end(messageForm) }}
+    <a href="{{ path('employe_index') }}" class="btn btn-secondary mt-3">Retour</a>
+</div>
+{% endblock %}
+{# 
+<style>
+    .messages {
+        margin-bottom: 20px;
+    }
+    .message {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+    .from-me {
+        background-color: #e9ecef;
+        text-align: right;
+    }
+    .to-me {
+        background-color: #f8f9fa;
+        text-align: left;
+    }
+</style> #}
