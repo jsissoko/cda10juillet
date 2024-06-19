@@ -5,18 +5,12 @@ services:
         autoconfigure: true # Configure automatiquement les services
         public: false       # Recommandation de Symfony pour une meilleure encapsulation
 
-
-    App\EventSubscriber\UserSubscriber:
-        arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
-        tags:
-            - { name: 'kernel.event_subscriber' }
-
     App\Security\ActiveUserChecker:
         tags:
             - { name: 'security.user_checker' }
 
     # Définit les services dans le namespace 'App'
+
     App\:
         resource: '../src/*'
         exclude:

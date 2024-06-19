@@ -1,27 +1,30 @@
 <?php
-
 namespace App\Controller;
 
+use App\Entity\Messages;
+use App\Form\MessagesType;
+use App\Repository\MessagesRepository;
+use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\MessagesRepository;
-use App\Entity\Messages;
-use App\Entity\Utilisateur;
-use App\Form\MessagesType;
-// use Doctrine\ORM\Mapping\Entity;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 
 class MessagesController extends AbstractController
 {
     private $entityManager;
     private $messagesRepository;
+    private $utilisateurRepository;
+    private $security;
 
-    public function __construct(EntityManagerInterface $entityManager, MessagesRepository $messagesRepository)
+    public function __construct(EntityManagerInterface $entityManager, MessagesRepository $messagesRepository, UtilisateurRepository $utilisateurRepository, Security $security)
     {
         $this->entityManager = $entityManager;
         $this->messagesRepository = $messagesRepository;
+        $this->utilisateurRepository = $utilisateurRepository;
+        $this->security = $security;
     }
 
     #[Route('/messages', name: 'app_messages')]
@@ -36,8 +39,6 @@ class MessagesController extends AbstractController
         ]);
     }
 
-    // src/Controller/MessagesController.php
-
     #[Route('/messages/send', name: 'send_message_form')]
     public function sendMessageForm(Request $request): Response
     {
@@ -46,22 +47,35 @@ class MessagesController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // Récupérer l'utilisateur connecté
             $user = $this->getUser();
-            
-            // Vérifier si l'utilisateur est connecté
+
             if (!$user) {
                 $this->addFlash('error', 'Vous devez être connecté pour envoyer un message.');
-                return $this->redirectToRoute('app_login');  // Rediriger vers la page de connexion
+                return $this->redirectToRoute('app_login');
             }
 
-            // $employe = $user->getNom();  // Récupérer l'employé assigné
-            // if (!$employe) {
-            //     $this->addFlash('error', 'Aucun employé n’est assigné à votre compte.');
-            //     return $this->redirectToRoute('app_messages');  // Rediriger vers la liste des messages
-            // }
-            
+            if (in_array('ROLE_EMPLOYE', $user->getRoles())) {
+                // Employé envoie un message à un utilisateur
+                $clients = $this->utilisateurRepository->findClientsByEmploye($user);
+                if (empty($clients)) {
+                    $this->addFlash('error', 'Aucun client n\'est assigné à votre compte.');
+                    return $this->redirectToRoute('app_messages');
+                }
+                $destinataire = $clients[0]; // Supposons que l'employé ne peut envoyer qu'à un seul client
+            } elseif (in_array('ROLE_USER', $user->getRoles())) {
+                // Utilisateur envoie un message à son employé
+                $employe = $this->utilisateurRepository->findEmployeByClient($user);
+                if (!$employe) {
+                    $this->addFlash('error', 'Aucun employé n\'est assigné à votre compte.');
+                    return $this->redirectToRoute('app_messages');
+                }
+                $destinataire = $employe;
+            } else {
+                $this->addFlash('error', 'Rôle utilisateur non reconnu.');
+                return $this->redirectToRoute('app_messages');
+            }
 
+            $message->setDestinataire($destinataire);
             $message->setExpediteur($user);
         
             // Enregistrer le message dans la base de données
@@ -69,14 +83,13 @@ class MessagesController extends AbstractController
             $this->entityManager->flush();
 
             $this->addFlash('success', 'Message envoyé avec succès.');
-            return $this->redirectToRoute('app_messages');  // Rediriger vers la liste des messages
+            return $this->redirectToRoute('app_messages');
         }
 
         return $this->render('messages/send.html.twig', [
             'messageForm' => $form->createView(),
         ]);
     }
-
 
     #[Route('/messages/show/{id}', name: 'message_show')]
     public function showMessage(int $id): Response
@@ -93,9 +106,9 @@ class MessagesController extends AbstractController
     }
 
     #[Route('/messages/reply/{id}', name: 'message_reply', methods: ['POST'])]
-    public function replyMessage(Request $request, int $id, EntityManagerInterface $entityManager): Response
+    public function replyMessage(Request $request, int $id): Response
     {
-        $message = $entityManager->getRepository(Messages::class)->find($id);
+        $message = $this->entityManager->getRepository(Messages::class)->find($id);
 
         if (!$message) {
             throw $this->createNotFoundException('Le message n\'existe pas.');
@@ -107,36 +120,10 @@ class MessagesController extends AbstractController
         $replyMessage->setExpediteur($this->getUser());
         $replyMessage->setDestinataire($message->getExpediteur());
 
-        $entityManager->persist($replyMessage);
-        $entityManager->flush();
+        $this->entityManager->persist($replyMessage);
+        $this->entityManager->flush();
 
         $this->addFlash('success', 'Votre réponse a été envoyée.');
         return $this->redirectToRoute('app_messages');
     }
-
-
-//     // src/Controller/MessagesController.php
-
-// #[Route('/messages/send-to-employe', name: 'send_message_to_employe')]
-// public function sendMessageToEmploye(Request $request, EntityManagerInterface $entityManager): Response
-// {
-//     $user = $this->getUser();  // Assurez-vous que cela retourne un Utilisateur
-
-//     if (!$user) {
-//         $this->addFlash('error', 'Vous devez être connecté pour envoyer un message.');
-//         return $this->redirectToRoute('app_login');
-//     }
-
-//     $employe = $user->getEmploye();
-//     if (!$employe) {
-//         $this->addFlash('error', 'Aucun employé n’est assigné à votre compte.');
-//         return $this->redirectToRoute('dashboard');
-//     }
-
-//     $message = new Messages();
-//     $message->setExpediteur($user);
-//     $message->setDestinataire($employe);
-//     // Logique pour traiter le formulaire de message
-// }
-
 }
