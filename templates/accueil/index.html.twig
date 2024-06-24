@@ -15,40 +15,7 @@
     </div>
 
 
-    <div class="row mt-5">
-        <div class="col-md-4 col ms-6">
-            <div class="card">
-                <img src="/images/icones/planete-terre.png" class="card-img-top img-fluid" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Feature 1</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#feature1Modal">Read More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <img src="/images/icones/choix.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Feature 2</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#feature2Modal">Read More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <img src="/images/icones/messages.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Feature 3</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#feature3Modal">Read More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<hr>
+    
 <div class="section1">
         <div class="separation">
             <div class="cotegauche">
@@ -62,8 +29,8 @@
                 </div>
                 <div class="readmoreseparation">
                     <center> <button class="custom-button">
-        <span class="black-text">Read</span> 
-        <span class="white-text">More</span></button></center>
+        <span class="black-text">Lire</span> 
+        <span class="white-text">Plus</span></button></center>
                 </div>
 
             </div>
@@ -73,23 +40,72 @@
         </div></div>
     </div>
 
+
  <!-- Carousel -->
-    <div id="productCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
+<div class="container mt-5">
+    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             {% for product in products %}
                 <div class="carousel-item {% if loop.first %}active{% endif %}">
-                    <img src="{{ product.image }}" class="d-block w-100" alt="Slide {{ loop.index }}">
+                    <div class="d-flex justify-content-center">
+                        <img src="{{ asset('images/products/' ~ product.image) }}" class="d-block w-75 img-fluid rounded" alt="Slide {{ loop.index }}">
+                    </div>
                 </div>
             {% endfor %}
         </div>
         <a class="carousel-control-prev" href="#productCarousel" role="button" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Precedent</span>
+            <span class="visually-hidden">Précédent</span>
         </a>
         <a class="carousel-control-next" href="#productCarousel" role="button" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Suivant</span>
         </a>
     </div>
+</div>
+
+    <div class="row mt-5">
+        <div class="col-md-4 col ms-6">
+            <div class="card">
+             <div class="d-flex justify-content-center">
+                 <img src="/images/icones/planete-terre.png" class="card-img-top w-50 h-auto" alt="...">
+             </div>
+                <div class="card-body">
+                    <h5 class="card-title">On agit pour l'ecologie</h5>
+                    <p class="card-text">Chez Ventalis, entreprise de parfums de luxe, nous sommes passionnés par l'art de créer des fragrances exceptionnelles tout en respectant notre engagement envers l'écologie. Par exemple, nous avons mis en place un programme de recyclage des bouteilles de parfum, permettant à nos clients de retourner leurs flacons vides afin qu'ils soient réutilisés dans la fabrication de nouveaux produits. De plus, nous privilégions l'utilisation d'ingrédients naturels et durables pour minimiser notre impact environnemental et préserver la beauté de la nature cela représente pour nous un réel defi.</p>
+                    <a href="#" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#feature1Modal">En savoir plus </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="d-flex justify-content-center">
+                    <img src="/images/icones/choix.png" class="card-img-top w-50 h-auto" alt="...">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Une largesse incroyable !!</h5>
+                    <p class="card-text">Chez Ventalis, nous sommes fiers de proposer un large choix de parfums de luxe qui sauront satisfaire les goûts les plus variés. Notre collection, soigneusement élaborée par des maîtres parfumeurs, comprend des fragrances allant des notes florales délicates aux accords boisés intenses, en passant par des senteurs fraîches et fruitées. Chaque parfum est une œuvre d'art unique, créée pour évoquer des émotions et des souvenirs précieux. Nous vous invitons à découvrir notre vaste gamme et à trouver le parfum qui correspond parfaitement à votre personnalité et à votre style.
+</p>
+                    <a href="#" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#feature2Modal">En savoir plus </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="d-flex justify-content-center">
+                    <img src="/images/icones/messages.png" class="card-img-top w-50 h-auto" alt="...">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Faites nous confiance :) </h5>
+                    <p class="card-text">Chez Ventalis, nous croyons que chaque client mérite une expérience de luxe personnalisée. C'est pourquoi nous mettons à votre disposition des conseillers experts dédiés, prêts à vous guider dans votre choix de parfum. Nos conseillers prennent le temps de comprendre vos préférences, vos besoins et votre style de vie pour vous recommander les fragrances qui vous conviendront le mieux. Que vous cherchiez un parfum pour une occasion spéciale ou votre nouvelle signature olfactive, nos conseillers sont là pour vous offrir un service sur mesure et rendre votre expérience avec Ventalis inoubliable.</p>
+                    <a href="#" class="btn btn-custom " data-bs-toggle="modal" data-bs-target="#feature3Modal">En savoir plus </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+
 
 {% endblock %}

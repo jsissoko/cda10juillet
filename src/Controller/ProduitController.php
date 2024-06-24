@@ -25,6 +25,12 @@ class ProduitController extends AbstractController
             'selectedCategories' => [], // Initialement aucune catégorie sélectionnée
             'sortPrice' => null, // Pas de tri initialement
         ]);
+
+        return $this->render('accueil/index.html.twig', [
+            'controller_name' => 'ProduitController',
+            'products' => $products,
+            'categories' => $categories,
+        ]);
     }
 
     #[Route('/products', name: 'produit_index')]

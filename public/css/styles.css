@@ -23,7 +23,9 @@ body {
 }
 
 .footer {
-    background-color: #A0E7E5;
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px 0;
 }
 
 
@@ -150,8 +152,4 @@ body {
 .btn-custom:hover {
     background-color: #A0E7E5;
     border-color: #A0E7E5;
-}
-
-.card img {
-    padding: 125px;
 }
