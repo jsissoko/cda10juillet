@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <!-- Ajout de l'image -->
+    <div class="text-center mb-4">
+        <img src="{{ asset('images/apropos.png') }}" alt="À propos de Ventalis" class="img-fluid">
+    </div>
+
+    <h1>À propos de Ventalis</h1>
+    <p>
+        Ventalis est une marque dédiée à la création de parfums uniques et élégants. Nos produits sont fabriqués avec les meilleurs ingrédients naturels pour garantir une expérience de luxe.
+    </p>
+    <p>
+        Nous croyons en l'importance de la qualité et de l'authenticité. Chaque parfum est soigneusement conçu pour offrir une expérience olfactive inoubliable. Chez Ventalis, nous nous efforçons de créer des fragrances qui évoquent des émotions et des souvenirs, tout en respectant l'environnement et en utilisant des ingrédients durables.
+    </p>
+    <h2>Notre histoire</h2>
+    <p>
+        Fondée en 2020, Ventalis a rapidement gagné une réputation pour son excellence et son innovation dans le monde de la parfumerie. Nous avons commencé avec une petite collection de parfums exclusifs et avons depuis élargi notre gamme pour inclure une variété de produits qui répondent aux goûts et aux préférences de chacun.
+    </p>
+    <h2>Notre mission</h2>
+    <p>
+        Notre mission est de créer des parfums de haute qualité qui inspirent et enchantent. Nous sommes passionnés par l'art de la parfumerie et nous nous engageons à offrir des produits qui reflètent notre dévouement à l'innovation, à la qualité et à la satisfaction de nos clients.
+    </p>
+    <h2>Contactez-nous</h2>
+    <p>
+        Si vous avez des questions, des commentaires ou des suggestions, n'hésitez pas à nous contacter. Nous sommes toujours ravis d'entendre nos clients et de partager notre passion pour la parfumerie.
+    </p>
+  <div class="d-flex justify-content-center ">
+    <a href="{{ path('contact') }}" class="btn btn-primary">Contactez-nous</a>
+</div>
+
+</div>
+{% endblock %}
