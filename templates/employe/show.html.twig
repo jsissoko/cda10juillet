@@ -19,6 +19,36 @@
         <dd class="col-sm-9">{{ client.numeroRue }} {{ client.nomRue }}, {{ client.ville }}, {{ client.pays }}</dd>
     </dl>
     <hr>
+    <h2>Commandes en Cours</h2>
+    {% if commandesEnCours %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+    {% for commande in commandesEnCours %}
+    <tr>
+        <td>{{ commande.id }}</td>
+        <td>{{ commande.date|date('Y-m-d') }}</td>
+        <td>{{ commande.status }}</td>
+        <td>{{ commande.total }} €</td>
+        <td>
+            <a href="{{ path('commande_detail', {'id': commande.id}) }}" class="btn btn-info">Détails</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucune commande en cours.</p>
+    {% endif %}
+    <hr>
     <h2>Discussion en cours</h2>
     <div class="messages">
         {% for message in messages %}
@@ -48,22 +78,3 @@
     <a href="{{ path('employe_index') }}" class="btn btn-secondary mt-3">Retour</a>
 </div>
 {% endblock %}
-{# 
-<style>
-    .messages {
-        margin-bottom: 20px;
-    }
-    .message {
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-    }
-    .from-me {
-        background-color: #e9ecef;
-        text-align: right;
-    }
-    .to-me {
-        background-color: #f8f9fa;
-        text-align: left;
-    }
-</style> #}
