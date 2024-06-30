@@ -20,7 +20,7 @@
         </li>
         {% if is_granted('ROLE_EMPLOYE') %}
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{ path('employe_index') }}">Employé</a>
+            <a class="nav-link" aria-current="page" href="{{ path('employe_index') }}">Intranet</a>
           </li>
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}

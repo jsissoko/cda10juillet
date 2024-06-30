@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
+#[Vich\Uploadable]
 
 /**
  * @ORM\Entity
@@ -47,7 +48,6 @@ class Produit
     #[Vich\UploadableField(mapping: 'product_image', fileNameProperty: 'image')]
     private ?File $imageFile = null;
 
-    
 
     #[ORM\ManyToOne(inversedBy: 'Produit')]
     private ?Utilisateur $utilisateur = null;
@@ -164,6 +164,16 @@ class Produit
     public function getImageFile(): ?File
     {
         return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile = null): self
+    {
+        $this->imageFile = $imageFile;
+        if ($imageFile) {
+            // Si le fichier est effectivement modifié, vous pouvez déclencher d'autres actions ici, comme une mise à jour de date
+            // $this->updatedAt = new \DateTime('now');
+        }
+        return $this;
     }
 
    

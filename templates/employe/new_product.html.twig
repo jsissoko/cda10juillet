@@ -1,0 +1,30 @@
+{# templates/produit/new.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h2>Ajouter un nouveau produit</h2>
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prix) }}
+        {{ form_row(form.quantite) }}
+        {{ form_row(form.info_produit) }}
+        {{ form_row(form.ref_prod) }}
+        {{ form_row(form.image) }}
+        <div class="mb-3">
+            {{ form_label(form.categories, 'Catégories', {'label_attr': {'class': 'form-label'}}) }}
+            <div class="checkbox-group">
+                {% for checkbox in form.categories %}
+                    <div class="form-check">
+                        {{ form_widget(checkbox, {'attr': {'class': 'form-check-input'}}) }}
+                        {{ form_label(checkbox, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {{ form_row(form.statut_produit) }}
+        <button type="submit" class="btn btn-success">Sauvegarder</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}
