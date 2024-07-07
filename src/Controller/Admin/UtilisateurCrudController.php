@@ -33,7 +33,6 @@ class UtilisateurCrudController extends AbstractCrudController
                     'Utilisateur' => 'ROLE_USER',
                     'Employé' => 'ROLE_EMPLOYE',  // Si applicable
                     'Administrateur' => 'ROLE_ADMIN',
-                    'SuperAdministrateur' => 'ROLE_SUPER_ADMIN',
                 ])
                 ->allowMultipleChoices()
                 ->renderExpanded(), // Affiche les choix sous forme de boutons radio/checkbox

@@ -23,7 +23,7 @@ use App\Form\UserPasswordType;
     #[Route('/', name: 'app_profile_index', methods: ['GET'])]
     public function index(): Response
     {
-        $user = $this->getUser(); // Récupérer l'utilisateur connecté
+        $user = $this->getUser(); // Récupéreration de l'utilisateur connecté
 
         if (!$user) {
             throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à accéder à cette page.');

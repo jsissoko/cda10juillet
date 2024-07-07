@@ -105,7 +105,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         $this->recu = new ArrayCollection();
         $this->clients = new ArrayCollection();
         $this->commandes = new ArrayCollection();
-    }
+        $this->matricule = rand(1000,99999);
+        $this->roles = ['ROLE_USER'] ;
+       }
  
     public function __toString()
     {

@@ -54,15 +54,7 @@ class MessagesController extends AbstractController
                 return $this->redirectToRoute('app_login');
             }
 
-            if (in_array('ROLE_EMPLOYE', $user->getRoles())) {
-                // Employé envoie un message à un utilisateur
-                $clients = $this->utilisateurRepository->findClientsByEmploye($user);
-                if (empty($clients)) {
-                    $this->addFlash('error', 'Aucun client n\'est assigné à votre compte.');
-                    return $this->redirectToRoute('app_messages');
-                }
-                $destinataire = $clients[0]; // Supposons que l'employé ne peut envoyer qu'à un seul client
-            } elseif (in_array('ROLE_USER', $user->getRoles())) {
+            if (in_array('ROLE_USER', $user->getRoles())) {
                 // Utilisateur envoie un message à son employé
                 $employe = $this->utilisateurRepository->findEmployeByClient($user);
                 if (!$employe) {
@@ -72,7 +64,7 @@ class MessagesController extends AbstractController
                 $destinataire = $employe;
             } else {
                 $this->addFlash('error', 'Rôle utilisateur non reconnu.');
-                return $this->redirectToRoute('app_messages');
+                return $this->redirectToRoute('app_login');
             }
 
             $message->setDestinataire($destinataire);

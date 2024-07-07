@@ -41,7 +41,7 @@ class EmployeController extends AbstractController
             throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à accéder à cette page.');
         }
 
-        // Récupérer les utilisateurs attribués à cet employé
+        // Récupérer les utilisateurs attribués à cet employé grace au methode du repository
         $clients = $utilisateurRepository->findClientsByEmploye($user);
 
         // Récupérer les produits créés par l'employé
@@ -49,7 +49,7 @@ class EmployeController extends AbstractController
 
         return $this->render('employe/index.html.twig', [
             'clients' => $clients,
-            'produits' => $produits, // Envoyer les produits à la vue
+            'produits' => $produits, // Envoyer les produits à la vue ainsi que les clients
         ]);
     }
 

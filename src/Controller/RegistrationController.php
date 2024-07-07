@@ -43,11 +43,8 @@ class RegistrationController extends AbstractController
             if ($employe) {
                 $user->setEmploye($employe);
             }
-
-
             $entityManager->persist($user);
             $entityManager->flush();
-
             $this->emailVerifier->sendVerificationEmail($user->getEmail(), $user->getVerificationCode());
             $this->addFlash('success', 'To finalize the creation of your account, please enter the verification code sent to your email.');
 

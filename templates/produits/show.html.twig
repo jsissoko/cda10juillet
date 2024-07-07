@@ -12,6 +12,15 @@
             <h1>{{ produit.nom }}</h1>
             <p>{{ produit.infoProduit }}</p>
             <p><strong>Prix :</strong> {{ produit.prix }} €</p>
+            {% if produit.categories|length > 0 %}
+                <p><strong>Catégories :</strong> 
+                    {% for category in produit.categories %}
+                        {{ category.nomCategorie }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            {% else %}
+                <p>Ce produit ne figure dans aucune catégorie.</p>
+            {% endif %}
             <a href="{{ path('cart_add', {'id': produit.id}) }}" class="btn btn-primary">Ajouter au panier</a>
         </div>
     </div>

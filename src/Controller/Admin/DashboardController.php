@@ -14,17 +14,18 @@ use App\Entity\Categories;
 // use App\Entity\Produit;
 use App\Entity\Utilisateur;
 
-
 class DashboardController extends AbstractDashboardController
 {
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        // return parent::index();
+        // Restreindre l'accès au tableau de bord aux utilisateurs ayant le rôle ROLE_ADMIN
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        // Rediriger vers le contrôleur CRUD de Produit
         $routeBuilder = $this->container->get(AdminUrlGenerator::class);
         $url = $routeBuilder->setController(ProduitCrudController::class)->generateUrl();
-   
-           return $this->redirect($url);
+        return $this->redirect($url);
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
@@ -59,7 +60,5 @@ class DashboardController extends AbstractDashboardController
         // yield MenuItem::linkToCrud('Panier', 'fas fa-map-marker-alt', Panier::class);
         // yield MenuItem::linkToCrud('Produits', 'fas fa-comments', Produit::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-map-marker-alt', Utilisateur::class);
-    
-
     }
 }
