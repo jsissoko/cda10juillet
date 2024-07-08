@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use App\Entity\Panier;
+
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -74,8 +74,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $utilisateurs;
 
 
-    // #[ORM\OneToOne(targetEntity: Panier::class, mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
-    // private ?Panier $panier = null;
 
     #[ORM\OneToMany(mappedBy: 'expediteur', targetEntity: Messages::class, orphanRemoval: true)]
     private Collection $sent;
