@@ -26,8 +26,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = [];
 
-    
-
     /**
      * @var string The hashed password
      */
@@ -64,6 +62,13 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isActive = false;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $resetToken = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $tokenExpiry = null;
+
+
     #[ORM\OneToMany(mappedBy: 'Utilisateur', targetEntity: Produit::class)]
     private Collection $produit;
 
@@ -72,7 +77,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'Utilisateur', targetEntity: self::class)]
     private Collection $utilisateurs;
-
 
 
     #[ORM\OneToMany(mappedBy: 'expediteur', targetEntity: Messages::class, orphanRemoval: true)]
@@ -304,6 +308,32 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    // Setter pour resetToken
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+        return $this;
+    }
+
+    // Getter pour tokenExpiry
+    public function getTokenExpiry(): ?\DateTimeInterface
+    {
+        return $this->tokenExpiry;
+    }
+
+    // Setter pour tokenExpiry
+    public function setTokenExpiry(?\DateTimeInterface $tokenExpiry): self
+    {
+        $this->tokenExpiry = $tokenExpiry;
+        return $this;
+    }
 
  
     public function getEmploye(): ?Utilisateur
